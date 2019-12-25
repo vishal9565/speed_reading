@@ -16,6 +16,7 @@ from app.controllers.passage import passage
 from app.orm import db, DATABASE_BIND_KEY, DATABASE_NAME
 from app.orm.models.users import Users
 from app.orm.models.passage import Passage
+
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
 
@@ -27,6 +28,7 @@ def create_app():
     :return: Flask app instance
     :rtype:`flask.app.Flask`
     """
+
     app_instance = Flask(__name__,
                          static_folder="web/static",
                          template_folder="web/pages")
@@ -38,9 +40,9 @@ def create_app():
     # TODO : register error handlers
 
     app_instance.config.from_pyfile("../config/default.py", silent=False)
+    app_instance.logger = True
 
     # sql-alchemy variable initialisation
-
     app_instance.config["SQLALCHEMY_BINDS"] = {
         DATABASE_BIND_KEY: os.environ["APP_DB"]
     }

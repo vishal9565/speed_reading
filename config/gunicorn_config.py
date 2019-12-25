@@ -7,9 +7,6 @@ gunicorn configuration parameters
 
 import logging
 import os
-from multiprocessing import cpu_count
-
-from utils.logging_helper import load_logger
 
 __author__ = "vishalkumar9565@gmail.com"
 
@@ -30,13 +27,15 @@ errorlog = "-"
 preload_app = True
 
 # Number of gunicorn workers
-workers = cpu_count() * 2 + 1
+# workers = cpu_count() * 2 + 1
+workers = 1
 
 # Set the worker class to gthread
 worker_class = "gevent"
 
 # Set the number of threads
-threads = cpu_count() * 2
+# threads = cpu_count() * 2
+threads = 1
 
 # Set the timeout for requests (purposefully set to a very high value of 1 hour)
 timeout = 3600

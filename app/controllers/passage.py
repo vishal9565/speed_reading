@@ -7,7 +7,9 @@ This contains passage related tables and its questions
 import logging
 import os
 
-from flask import Blueprint
+from flask import Blueprint, render_template
+
+from app.orm.models.passage import Passage
 
 __author__ = "vishalkumar9565@gmail.com"
 
@@ -21,4 +23,6 @@ passage = Blueprint(name="passage", import_name=__name__)
 
 @passage.route("/passage")
 def get_passage():
-    return "Passage is about to come"
+    passage = Passage.query.filter(Passage.id == 1 and Passage.paragraph_id == 2).first()
+    print(type(passage))
+    return render_template("template/passage.html", passage=passage)

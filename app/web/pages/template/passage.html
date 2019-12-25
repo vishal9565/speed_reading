@@ -1,0 +1,51 @@
+{% extends "template/welcome.html" %}
+
+{% block passage_block %}
+    <div class="card-body">
+        <div>
+            <h6 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4"></h6>
+        </div>
+        <hr>
+        <div class="text-md-center">
+            <form>
+                <div class="form-group">
+                    <label for="formControlRange">Example Range input</label>
+                    <input type="range" class="form-control-range" id="formControlRange">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock passage_block %}
+
+
+
+{% block js_block %}
+    <script>
+        var passage_container = document.getElementById("Passage");
+        paragraph =  {{passage.paragraph|tojson}};
+
+        paragraph = paragraph.split(" ");
+
+        {#todo :  set the time and read every one sec#}
+
+        word = 0;
+
+        function next_words(ind, len) {
+            setTimeout(function () {
+                passage_container.innerHTML = paragraph.slice(word, word + len).join(" ");
+
+                word += len;
+                if (word < paragraph.length) {
+                    next_words(0, 2)
+                }
+            }, 1000);
+
+        }
+
+        next_words(0, 2);
+
+
+    </script>
+{% endblock js_block %}
