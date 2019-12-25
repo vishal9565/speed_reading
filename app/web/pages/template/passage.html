@@ -1,17 +1,21 @@
 {% extends "template/welcome.html" %}
 
 {% block passage_block %}
-    <div class="text-md-center">
+    <div class="card-body">
+        <div>
+            <h6 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4"></h6>
+        </div>
+        <hr>
+        <div class="text-md-center">
+            <form>
+                <div class="form-group">
+                    <label for="formControlRange">Example Range input</label>
+                    <input type="range" class="form-control-range" id="formControlRange">
+                </div>
+            </form>
+        </div>
+    </div>
 
-        <row>
-            {{ passage.id }}
-            {{ passage.paragraph_id }}
-            {{ passage.paragraph }}
-        </row>
-    </div>
-    <div id="Passage">
-        Start passage
-    </div>
 
 {% endblock passage_block %}
 
@@ -25,12 +29,22 @@
         paragraph = paragraph.split(" ");
 
         {#todo :  set the time and read every one sec#}
-        for (word = 0; word < paragraph.length; word++) {
+
+        word = 0;
+
+        function next_words(ind, len) {
             setTimeout(function () {
-                passage_container.innerText = paragraph[word];
-                {#console.log(paragraph[word]);#}
+                passage_container.innerHTML = paragraph.slice(word, word + len).join(" ");
+
+                word += len;
+                if (word < paragraph.length) {
+                    next_words(0, 2)
+                }
             }, 1000);
+
         }
+
+        next_words(0, 2);
 
 
     </script>
