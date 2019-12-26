@@ -1,19 +1,33 @@
 {% extends "template/welcome.html" %}
 
 {% block passage_block %}
+
     <div class="card-body">
         <div>
             <h6 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4"></h6>
         </div>
         <hr>
-        <div class="text-md-center">
-            <form>
-                <div class="form-group">
-                    <label for="formControlRange">Example Range input</label>
-                    <input type="range" class="form-control-range" id="formControlRange">
-                </div>
-            </form>
+        <div class="text-md-center" id="slider-option">
+
+            <div class="form-group ">
+                <label for="formControlRange" id="words">
+                    <h6>
+                        <i id="words_per_sec">2</i> words per second
+
+                    </h6>
+
+                </label>
+                <input type="range" class="form-control-range" id="slider" min="1" max="20" value="2">
+            </div>
+            <div>
+                <button type="button" class="btn btn-info" id="start the passage">Start the passage</button>
+            </div>
         </div>
+
+    </div>
+
+    <div>
+        <h6 id="all_text"></h6>
     </div>
 
 
@@ -27,10 +41,19 @@
         paragraph =  {{passage.paragraph|tojson}};
 
         paragraph = paragraph.split(" ");
+        {#Setting the word length to be show at every sec #}
+        {#get the slider#}
+        var slider = document.getElementById("slider");
 
-        {#todo :  set the time and read every one sec#}
+        var start_passage = document.getElementById('start the passage');
+        {#setting the text of the slider#}
+        slider.onclick = function () {
 
-        word = 0;
+            document.getElementById('words_per_sec').innerText = document.getElementById('slider').value
+        };
+        {# set value to number of words #}
+        var word = 0;
+        var len = 2;
 
         function next_words(ind, len) {
             setTimeout(function () {
@@ -38,13 +61,22 @@
 
                 word += len;
                 if (word < paragraph.length) {
-                    next_words(0, 2)
+                    next_words(0, len)
                 }
-            }, 1000);
+            }, 500);
 
         }
 
-        next_words(0, 2);
+        start_passage.onclick = function () {
+            word = 0;
+
+            len = parseInt(document.getElementById('slider').value);
+            start_passage.innerHTML = "Start Again";
+            next_words(0, len);
+
+        };
+
+
 
 
     </script>
