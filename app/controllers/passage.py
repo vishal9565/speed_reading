@@ -23,6 +23,6 @@ passage = Blueprint(name="passage", import_name=__name__)
 
 @passage.route("/passage")
 def get_passage():
-    passage = Passage.query.filter(Passage.id == 1 and Passage.paragraph_id == 2).all()
+    passage = Passage.query.filter(Passage.id == 1 and Passage.paragraph_id == 2).first()
     print(type(passage))
     return render_template("template/passage.html", passage=passage)
