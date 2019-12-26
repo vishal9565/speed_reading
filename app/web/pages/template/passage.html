@@ -8,9 +8,10 @@
         <hr>
         <div class="text-md-center">
             <form>
-                <div class="form-group">
-                    <label for="formControlRange">Example Range input</label>
-                    <input type="range" class="form-control-range" id="formControlRange">
+                <div class="form-group ">
+                    <label for="formControlRange" id="words"> 2  words per second</label>
+                    <input type="range" class="form-control-range" id="words_per_sec">
+
                 </div>
             </form>
         </div>
@@ -27,24 +28,31 @@
         paragraph =  {{passage.paragraph|tojson}};
 
         paragraph = paragraph.split(" ");
-
+        {#Setting the word length to be show at every sec #}
+        {#get the slider#}
+        var slider = document.getElementById("words_per_sec");
+        var word = document.getElementById("words");
+        slider.ondrag = function(ev) {
+            console.log(ev);
+            word.innerHTML = ev.valueOf() + word.innerText.slice(1, word.innerText.length);
+        };
         {#todo :  set the time and read every one sec#}
 
         word = 0;
-
+        len = 4;
         function next_words(ind, len) {
             setTimeout(function () {
                 passage_container.innerHTML = paragraph.slice(word, word + len).join(" ");
 
                 word += len;
                 if (word < paragraph.length) {
-                    next_words(0, 2)
+                    next_words(0,len)
                 }
-            }, 1000);
+            }, 500);
 
         }
 
-        next_words(0, 2);
+        next_words(0, len);
 
 
     </script>
