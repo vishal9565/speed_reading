@@ -16,6 +16,7 @@ from app.controllers.passage import passage
 from app.orm import db, DATABASE_BIND_KEY, DATABASE_NAME
 from app.orm.models.users import Users
 from app.orm.models.passage import Passage
+from utils.converters import str2bool
 
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
@@ -40,6 +41,7 @@ def create_app():
     # TODO : register error handlers
 
     app_instance.config.from_pyfile("../config/default.py", silent=False)
+    
     app_instance.logger = True
 
     # sql-alchemy variable initialisation
@@ -47,6 +49,14 @@ def create_app():
         DATABASE_BIND_KEY: os.environ["APP_DB"]
     }
 
+    app_instance.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+        "echo": str2bool(os.environ["SQLALCHEMY_ECHO"]),
+        # "pool_size": int(os.environ["SQLALCHEMY_POOL_SIZE"]),
+        # "max_overflow": int(os.environ["SQLALCHEMY_MAX_OVERFLOW"]),
+        # "pool_pre_ping": str2bool(os.environ["SQLALCHEMY_POOL_PRE_PING"]),
+        # "pool_recycle": int(os.environ["SQLALCHEMY_POOL_RECYCLE"])
+
+    }
     with app_instance.app_context():
         # attaching db to app
         db.init_app(app=app_instance)

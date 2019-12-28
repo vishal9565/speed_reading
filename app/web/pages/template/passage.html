@@ -2,11 +2,18 @@
 
 {% block passage_block %}
 
+
     <div class="card-body">
+
+        <h2 class=" container text-center font-weight-bold blue-text shadow p-3 mb-5 rounded" style="background-color: #d1faff">{{ passage.name }}
+
+        </h2>
         <div>
-            <h6 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4"></h6>
+            <h3 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4   shadow p-3 mb-5 rounded">
+            <input class="" type="hidden" id="passage_txt" value="{{ paragraphs }}">
+            </h3>
         </div>
-        <hr>
+
         <div class="text-md-center" id="slider-option">
 
             <div class="form-group ">
@@ -29,6 +36,25 @@
     <div>
         <h6 id="all_text"></h6>
     </div>
+    <hr>
+    <ol>
+        {% for question, options_, answer in questions %}
+            <li type="A">
+                {{ question.question }}
+                <form id="question_id_{{ question.question_id }}">
+                    {% for option in options_ %}
+                        <input type="radio" name="gender" value="male" id="option_id_{{ option.option_id }}">
+                        {{ option.option_text }}<br>
+                    {% endfor %}
+                    <div id="correct_answer" class="row row-height"><input type="hidden"></div>
+                    <hr>
+                </form>
+            </li>
+        {% endfor %}
+        <button type="button" class="btn btn-success" id="submit">Submit</button>
+    </ol>
+
+
 
 
 {% endblock passage_block %}
@@ -38,8 +64,8 @@
 {% block js_block %}
     <script>
         var passage_container = document.getElementById("Passage");
-        paragraph =  {{passage.paragraph|tojson}};
-
+        var paragraph = document.getElementById("passage_txt").value;
+        console.log(paragraph);
         paragraph = paragraph.split(" ");
         {#Setting the word length to be show at every sec #}
         {#get the slider#}
@@ -57,7 +83,7 @@
 
         function next_words(ind, len) {
             setTimeout(function () {
-                passage_container.innerHTML = paragraph.slice(word, word + len).join(" ");
+                passage_container.innerText = paragraph.slice(word, word + len).join(" ");
 
                 word += len;
                 if (word < paragraph.length) {
@@ -75,7 +101,6 @@
             next_words(0, len);
 
         };
-
 
 
 
