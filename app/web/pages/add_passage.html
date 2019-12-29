@@ -1,0 +1,34 @@
+{% extends "template/welcome.html" %}
+
+{% block passage_block %}
+    <form>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Give the title of passage">
+        </div>
+
+        <div class="form-group">
+            <label for="paragraph_id_1">Passage</label>
+{#            <input type="text" class="form-control form-control-lg" id="paragraph_id_1" placeholder="Whole passage here">#}
+            <textarea class="form-control" id="paragraph_id_1" placeholder="Whole passage here" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="question_1">Question</label>
+            <input type="text" class="form-control" id="question_1" placeholder="question-1">
+        </div>
+        <button type="button" class="btn btn-info" id="submit" onclick="add_option()">Add option</button>
+        <div id="add_option">
+
+        </div>
+    </form>
+{% endblock passage_block %}
+
+
+{% block js_block %}
+    <script>
+    function add_option() {
+
+    }
+
+    </script>
+{% endblock js_block %}

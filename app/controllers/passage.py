@@ -34,7 +34,13 @@ def get_passage(id):
     # return my_jsonify(passage.questions[0].correct_answer[0].question.passage)
     # num_paras = len(passage.paragraphs)
 
-    return render_template("template/passage.html",
+    return render_template("passage.html",
                            passage=passage,
                            paragraphs=paragraphs,
                            questions=zip(questions, options, answers))
+
+
+@passage.route("/add-passage")
+def add_passage():
+
+    return render_template("add_passage.html")
