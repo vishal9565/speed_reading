@@ -37,7 +37,8 @@
         <h6 id="all_text"></h6>
     </div>
     <hr>
-    <ol>
+    <button class="btn btn-success text-center"  data-toggle="collapse" data-target="#questions">Questions</button><hr>
+    <ol id="questions" class="collapse" >
         {% for question, options_, answer in questions %}
             <li type="A">
                 {{ question.question }}
