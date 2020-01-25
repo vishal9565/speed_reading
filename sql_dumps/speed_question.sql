@@ -23,12 +23,16 @@ DROP TABLE IF EXISTS `question`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `question` (
-  `passage_id` int(11) DEFAULT NULL,
-  `question_id` int(11) NOT NULL AUTO_INCREMENT,
+  `version_id` bigint(20) unsigned NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated_by` varchar(255) DEFAULT 'SYSTEM',
+  `passage_id` bigint(20) DEFAULT NULL,
+  `question_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `question` varchar(200) NOT NULL,
   PRIMARY KEY (`question_id`),
   KEY `passage_id` (`passage_id`),
-  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`id`)
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +42,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (1,1,'Why did Mike and his family decide to rest under the thief’s tree ?'),(1,2,'Which of the following best describes Morris ?'),(1,3,' What did Mike mean when he said “He is watching all this from above”?'),(1,4,'Why did the thief return to the tree?'),(1,5,'How did the fellow villagers react to Mike getting rich overnight?');
+INSERT INTO `question` VALUES (1,'2019-12-28 07:49:15','2019-12-28 07:49:15','SYSTEM',1,1,'Why did Mike and his family decide to rest under the thief’s tree ?'),(1,'2019-12-28 07:49:15','2019-12-28 07:49:15','SYSTEM',1,2,'Which of the following best describes Morris ?'),(1,'2019-12-28 07:49:15','2019-12-28 07:49:15','SYSTEM',1,3,' What did Mike mean when he said “He is watching all this from above”?'),(1,'2019-12-28 07:49:15','2019-12-28 07:49:15','SYSTEM',1,4,'Why did the thief return to the tree?'),(1,'2019-12-28 07:49:15','2019-12-28 07:49:15','SYSTEM',1,5,'How did the fellow villagers react to Mike getting rich overnight?');
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-25 16:34:48
+-- Dump completed on 2019-12-28 13:20:27

@@ -1,0 +1,105 @@
+{% extends "template/welcome.html" %}
+
+{% block passage_block %}
+    {% if output %}
+        <div class="alert alert-success">
+        {{ output }}
+        </div>
+    {% endif %}
+    <form method="post" action="/add-passage">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="Give the title of passage"><br>
+        <label for="paragraph_id_1">Passage</label>
+        {#            <input type="text" class="form-control form-control-lg" id="paragraph_id_1" placeholder="Whole passage here">#}
+        <textarea class="form-control" name="paragraph" id="paragraph_id_1" placeholder="Whole passage here"
+                  rows="5"></textarea><br>
+        <label for="question_1">Question</label>
+
+        <div id="questions ">
+            <input type="text" class="form-control" name="question-1" id="question_1" placeholder="question-1"><br>
+            <div class="row">
+                <input type="text" class="form-control col-sm-4 m-2" name="option-11" placeholder="option-A"><br>
+                <input type="text" class="form-control col-sm-4 m-2" name="option-12" placeholder="option-B"><br>
+            </div>
+            <div class="row">
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-13" placeholder="option-C"><br>
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-14" placeholder="option-D"><br>
+            </div>
+            <select name="correct-1" class="custom-select col-sm-3 container-fluid">
+                <option selected>Select correct option</option>
+
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select>
+            <hr>
+            <input type="text" class="form-control" name="question-2" id="question_2" placeholder="question-2"><br>
+            <div class="row">
+                <input type="text" class="form-control col-sm-4 m-2" name="option-21" placeholder="option-A"><br>
+                <input type="text" class="form-control col-sm-4 m-2" name="option-22" placeholder="option-B"><br>
+            </div>
+            <div class="row">
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-23" placeholder="option-C"><br>
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-24" placeholder="option-D"><br>
+            </div>
+            <select name="correct-2" class="custom-select col-sm-3 container-fluid">
+                <option selected>Select correct option</option>
+
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select>
+            <hr>
+            <input type="text" class="form-control" name="question-3" id="question_3" placeholder="question-3"><br>
+            <div class="row">
+                <input type="text" class="form-control col-sm-4 m-2" name="option-31" placeholder="option-A"><br>
+                <input type="text" class="form-control col-sm-4 m-2" name="option-32" placeholder="option-B"><br>
+            </div>
+            <div class="row">
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-33" placeholder="option-C"><br>
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-34" placeholder="option-D"><br>
+            </div>
+            <select name="correct-3" class="custom-select col-sm-3 container-fluid">
+                <option selected>Select correct option</option>
+
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select>
+            <hr>
+            <input type="text" class="form-control" name="question-4" id="question_4" placeholder="question-4"><br>
+            <div class="row">
+                <input type="text" class="form-control col-sm-4 m-2" name="option-41" placeholder="option-A"><br>
+                <input type="text" class="form-control col-sm-4 m-2" name="option-42" placeholder="option-B"><br>
+            </div>
+            <div class="row">
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-43" placeholder="option-C"><br>
+                <input type="text" class="form-control  col-sm-4 m-2" name="option-44" placeholder="option-D"><br>
+            </div>
+            <select name="correct-4" class="custom-select col-sm-3 container-fluid">
+                <option selected>Select correct option</option>
+
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select>
+            <hr>
+        </div>
+        <button type="submit" class="btn btn-info" id="submit">Submit</button>
+        <div id="add_option">
+
+        </div>
+    </form>
+{% endblock passage_block %}
+{#<input type="text" class="form-control" name="question" id="question_1" placeholder="question-1"><br>#}
+
+{% block js_block %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+
+    </script>
+{% endblock js_block %}

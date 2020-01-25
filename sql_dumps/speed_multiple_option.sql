@@ -23,12 +23,16 @@ DROP TABLE IF EXISTS `multiple_option`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `multiple_option` (
-  `question_id` int(11) DEFAULT NULL,
-  `option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `version_id` bigint(20) unsigned NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated_by` varchar(255) DEFAULT 'SYSTEM',
+  `question_id` bigint(20) DEFAULT NULL,
+  `option_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `option_text` varchar(200) NOT NULL,
   PRIMARY KEY (`option_id`),
   KEY `question_id` (`question_id`),
-  CONSTRAINT `multiple_option_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`)
+  CONSTRAINT `multiple_option_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +42,7 @@ CREATE TABLE `multiple_option` (
 
 LOCK TABLES `multiple_option` WRITE;
 /*!40000 ALTER TABLE `multiple_option` DISABLE KEYS */;
-INSERT INTO `multiple_option` VALUES (1,1,'Being a large family, they knew that they could easily defeat the thief'),(1,2,'It was a convenient spot for taking a halt at night'),(1,3,'There was a stream nearby and wood enough to build a house'),(1,4,'That was the only large tree that could shelter their large family'),(2,5,'He was a rich businessman'),(2,6,'He bullied his wife'),(2,7,'He paid his servants well'),(2,8,'He was greedy and imitated Mike'),(3,9,'Being a large family, they knew that they could easily defeat the thief'),(3,10,'It was a convenient spot for taking a halt at night'),(3,11,'There was a stream nearby and wood enough to build a house'),(3,12,'That was the only large tree that could shelter their large family');
+INSERT INTO `multiple_option` VALUES (1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',1,1,'Being a large family, they knew that they could easily defeat the thief'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',1,2,'It was a convenient spot for taking a halt at night'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',1,3,'There was a stream nearby and wood enough to build a house'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',1,4,'That was the only large tree that could shelter their large family'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',2,5,'He was a rich businessman'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',2,6,'He bullied his wife'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',2,7,'He paid his servants well'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',2,8,'He was greedy and imitated Mike'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',3,9,'Being a large family, they knew that they could easily defeat the thief'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',3,10,'It was a convenient spot for taking a halt at night'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',3,11,'There was a stream nearby and wood enough to build a house'),(1,'2019-12-28 07:49:20','2019-12-28 07:49:20','SYSTEM',3,12,'That was the only large tree that could shelter their large family');
 /*!40000 ALTER TABLE `multiple_option` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-25 16:34:47
+-- Dump completed on 2019-12-28 13:20:27

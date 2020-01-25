@@ -28,14 +28,14 @@ preload_app = True
 
 # Number of gunicorn workers
 # workers = cpu_count() * 2 + 1
-workers = 1
+workers = 3
 
 # Set the worker class to gthread
 worker_class = "gevent"
 
 # Set the number of threads
 # threads = cpu_count() * 2
-threads = 1
+threads = 3
 
 # Set the timeout for requests (purposefully set to a very high value of 1 hour)
 timeout = 3600

@@ -23,12 +23,16 @@ DROP TABLE IF EXISTS `answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `answer` (
-  `question_id` int(11) NOT NULL,
-  `option_id` int(11) NOT NULL,
+  `version_id` bigint(20) unsigned NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated_by` varchar(255) DEFAULT 'SYSTEM',
+  `question_id` bigint(20) NOT NULL,
+  `option_id` bigint(20) NOT NULL,
   PRIMARY KEY (`question_id`,`option_id`),
   KEY `option_id` (`option_id`),
-  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `multiple_option` (`question_id`),
-  CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `multiple_option` (`option_id`)
+  CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `multiple_option` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`option_id`) REFERENCES `multiple_option` (`option_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +42,7 @@ CREATE TABLE `answer` (
 
 LOCK TABLES `answer` WRITE;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
-INSERT INTO `answer` VALUES (1,2),(2,8),(3,10);
+INSERT INTO `answer` VALUES (1,'2019-12-28 07:49:22','2019-12-28 07:49:22','SYSTEM',1,2),(1,'2019-12-28 07:49:22','2019-12-28 07:49:22','SYSTEM',2,8),(1,'2019-12-28 07:49:22','2019-12-28 07:49:22','SYSTEM',3,10);
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-25 16:34:47
+-- Dump completed on 2019-12-28 13:20:26

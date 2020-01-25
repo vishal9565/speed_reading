@@ -13,11 +13,13 @@ from app.orm import db, DATABASE_BIND_KEY
 
 __author__ = "vishalkumar9565@gmail.com"
 
+from app.orm.models.common import BaseClass
+
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
 
 
-class Users(db.Model):
+class Users(db.Model,BaseClass):
     """
     user information is stored in this table
     """
