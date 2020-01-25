@@ -7,15 +7,14 @@ Users model to create user table
 import logging
 import os
 
-from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey
-from sqlalchemy.dialects.mssql import BIGINT, VARCHAR
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy.dialects.mysql import BIGINT, VARCHAR
 from sqlalchemy.orm import relationship
 
 from app.orm import db, DATABASE_BIND_KEY
+from app.orm.models.common import BaseClass
 
 __author__ = "vishalkumar9565@gmail.com"
-
-from app.orm.models.common import BaseClass
 
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
@@ -56,13 +55,17 @@ class Paragraph(db.Model, BaseClass):
     __tablename__ = "paragraph"
     __table_args__ = {"mysql_engine": "InnoDB"}
 
-    id = Column(BIGINT,
-                ForeignKey(Passage.id,
-                           onupdate="CASCADE",
-                           ondelete="CASCADE"),
-                nullable=False)
-    paragraph_id = Column(BIGINT, primary_key=True)
-    paragraph = Column(VARCHAR(2000), nullable=False)
+    passage_id = Column(BIGINT,
+                        ForeignKey(Passage.id,
+                                   onupdate="CASCADE",
+                                   ondelete="CASCADE"),
+                        nullable=False)
+    paragraph_id = Column(BIGINT,
+                          primary_key=True,
+                          autoincrement=True,
+                          nullable=False)
+
+    paragraph = Column(VARCHAR(4000), nullable=False)
 
 
 class Question(db.Model, BaseClass):
@@ -98,7 +101,6 @@ class MultipleOption(db.Model, BaseClass):
 
     __bind_key__ = DATABASE_BIND_KEY
     __tablename__ = "multiple_option"
-    __table_args__ = {"mysql_engine": "InnoDB"}
 
     question_id = Column(BIGINT,
                          ForeignKey(Question.question_id,
@@ -107,6 +109,8 @@ class MultipleOption(db.Model, BaseClass):
                          nullable=False)
     option_id = Column(BIGINT, autoincrement=True, primary_key=True)
     option_text = Column(VARCHAR(200), nullable=False)
+
+    __table_args__ = ({"mysql_engine": "InnoDB"})
 
 
 class Answer(db.Model, BaseClass):
@@ -117,16 +121,14 @@ class Answer(db.Model, BaseClass):
     __bind_key__ = DATABASE_BIND_KEY
     __tablename__ = "answer"
 
+    id = Column(BIGINT, autoincrement=True, primary_key=True)
     question_id = Column(BIGINT,
                          ForeignKey(Question.question_id,
                                     onupdate="CASCADE",
-                                    ondelete="CASCADE"),
-                         nullable=False)
+                                    ondelete="CASCADE"))
     option_id = Column(BIGINT,
                        ForeignKey(MultipleOption.option_id,
                                   onupdate="CASCADE",
-                                  ondelete="CASCADE"),
-                       nullable=False)
+                                  ondelete="CASCADE"))
 
-    __table_args__ = (PrimaryKeyConstraint(question_id, option_id),
-                      {"mysql_engine": "InnoDB"})
+    __table_args__ = {"mysql_engine": "InnoDB"}
