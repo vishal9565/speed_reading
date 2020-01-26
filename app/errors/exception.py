@@ -7,12 +7,13 @@
 import logging
 import os
 
+from flask import current_app as app
 from werkzeug.exceptions import InternalServerError
+
 from app.messages.errors import ERROR_APP_DEFAULT
 from app.orm import STATUS_KEY, MESSAGE_KEY, MESSAGE_CODE_KEY
 
 __author__ = "vishalkumar9565@gmail.com"
-
 
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
@@ -31,6 +32,7 @@ class AppError(InternalServerError):
 
     @staticmethod
     def get_default_instance():
+        app.logger.info(ERROR_APP_DEFAULT[0], exc=True)
         AppError(*ERROR_APP_DEFAULT)
 
     def to_dict(self):

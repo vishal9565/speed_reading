@@ -81,4 +81,6 @@ def get_random_passage_id():
     :rtype :int
     """
     passage = Passage.query.order_by(func.rand()).first()
-    return passage.id
+    if passage:
+        return passage.id
+    return passage
