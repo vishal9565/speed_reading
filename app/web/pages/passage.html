@@ -5,12 +5,13 @@
 
     <div class="card-body">
 
-        <h2 class=" container text-center font-weight-bold blue-text shadow p-3 mb-5 rounded" style="background-color: #d1faff">{{ passage.name }}
+        <h2 class=" container text-center font-weight-bold blue-text shadow p-3 mb-5 rounded"
+            style="background-color: #d1faff">{{ passage.name }}
 
         </h2>
         <div>
             <h3 id="Passage" class="text-center font-weight-bold blue-text mt-3 mb-4 pb-4   shadow p-3 mb-5 rounded">
-            <input class="" type="hidden" id="passage_txt" value="{{ paragraphs }}">
+                <input class="" type="hidden" id="passage_txt" value="{{ paragraphs }}">
             </h3>
         </div>
 
@@ -37,25 +38,40 @@
         <h6 id="all_text"></h6>
     </div>
     <hr>
-    <button class="btn btn-success text-center"  data-toggle="collapse" data-target="#questions">Questions</button><hr>
-    <ol id="questions" class="collapse" >
+    <button class="btn btn-success text-center" data-toggle="collapse" data-target="#questions">Questions</button>
+    <hr>
+    <ol id="questions" class="collapse">
         {% for question, options_, answer in questions %}
-            <li type="A">
-                {{ question.question }}
+            {{ answer[0].option_id ,answer[0].question_id }}
+            <li type="1">
+
                 <form id="question_id_{{ question.question_id }}">
                     {% for option in options_ %}
-                        <input type="radio" name="gender" value="male" id="option_id_{{ option.option_id }}">
-                        {{ option.option_text }}<br>
+                        <div id="option_id_{{ option.option_id }}_text">
+                            <input type="radio" name="combine_radios" id="option_id_{{ option.option_id }}">
+                            {{ option.option_text }}<br>
+                        </div>
                     {% endfor %}
-                    <div id="correct_answer" class="row row-height"><input type="hidden"></div>
+                    <div id="correct_answer_{{ question.question_id }}" class="row row-height"><input
+                            type="hidden">{{ answer[0].option_id }}</div>
                     <hr>
                 </form>
             </li>
         {% endfor %}
-        <button type="button" class="btn btn-success" id="submit">Submit</button>
+
+        <button type="button" class="btn btn-success" id="submit" data-toggle="collapse" data-target="#next_passage">
+            Submit
+        </button>
+
+        <hr>
+        <div id="next_passage" class="collapse">
+            <div class="alert alert-success" id="answer_console">
+            </div>
+            <a href="/">
+                <button type="button" class="btn btn-primary" id="Next">Next Passage</button>
+            </a>
+        </div>
     </ol>
-
-
 
 
 {% endblock passage_block %}
@@ -102,8 +118,27 @@
             next_words(0, len);
 
         };
+        {# showing the result#}
+        var questions = document.querySelectorAll('[id^="correct_answer_"]');
+        var submit = document.getElementById("submit");
+        var ind = 0;
+        submit.onclick = function () {
+            var correct_answer = 0;
+            for (ind = 0; ind < questions.length; ind++) {
+                var correct_option = document.getElementById("option_id_" + questions[ind].innerText);
 
+                if (correct_option.checked) {
+                    var highlight = document.getElementById("option_id_" + questions[ind].innerText + "_text");
+                    highlight.style.color = "#19ff18";
+                    correct_answer = correct_answer + 1;
+                } else {
+                    var highlight = document.getElementById("option_id_" + questions[ind].innerText + "_text");
+                    highlight.style.color = "#ff1e34";
+                }
 
-
+            }
+            var answer_console = document.getElementById("answer_console");
+            answer_console.innerText = "Number of correct answers are " + correct_answer + " / " + questions.length;
+        };
     </script>
 {% endblock js_block %}

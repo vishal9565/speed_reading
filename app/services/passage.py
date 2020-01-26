@@ -19,7 +19,7 @@ def create_passage(name):
     :param name:
     :return:
     """
-    exec_rec = Passage.query.filter(Passage.name == name).one_or_none()
+    exec_rec = Passage.query.filter(Passage.name == name.encode("utf-8")).one_or_none()
     if exec_rec:
         raise AppError(*ERROR_DUPLICATE_PASSAGE_TITLE)
     passage = Passage()
@@ -40,7 +40,7 @@ def create_paragraph(**kwargs):
 
     para = Paragraph()
     para.passage_id = kwargs["passage_id"]
-    para.paragraph = kwargs["paragraph"]
+    para.paragraph = kwargs["paragraph"].encode("utf-8")
     try:
         with transactional_session() as sess:
             sess.add(para)

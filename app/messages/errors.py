@@ -14,3 +14,4 @@ ERROR_MULTIPLE_OPTION_CREATE = ("Error occurred during multiple option instance 
 # queries error
 ERROR_MULTIPLE_OBJECT_FOUND = ("multiple object found expect only one or for getting id","error.app.query.muliple_record.id")
 ERROR_NO_OBJECT_FOUND = ("multiple object found expect only one or for getting id","error.app.query.muliple_record.id")
+ERROR_NO_PASSAGE_FOUND = ("No passage found in db","error.app.query.passage.id.not_found")
