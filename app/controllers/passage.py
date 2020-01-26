@@ -20,9 +20,12 @@ LOGGER = logging.getLogger(__name__)
 passage_blueprint = Blueprint(name="passage", import_name=__name__)
 
 
-@passage_blueprint.route("/passage")
+@passage_blueprint.route("/", methods=["GET", "POST"])
+@passage_blueprint.route("/passage", methods=["GET", "POST"])
 def get_passage():
     id = get_random_passage_id()
+    if id is None:
+        return render_template("add_passage.html", output="No passage found. Please add a passage")
     if request.method == "POST":
         print(request.form)
         return request.form
