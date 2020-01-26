@@ -33,7 +33,7 @@ class Passage(db.Model, BaseClass):
                 nullable=False,
                 autoincrement=True,
                 primary_key=True)
-    name = Column(VARCHAR(255),
+    name = Column(VARCHAR(255, unicode=True),
                   nullable=False,
                   unique=True)
     paragraphs = relationship("Paragraph",
@@ -65,7 +65,7 @@ class Paragraph(db.Model, BaseClass):
                           autoincrement=True,
                           nullable=False)
 
-    paragraph = Column(VARCHAR(4000), nullable=False)
+    paragraph = Column(VARCHAR(4000, unicode=True), nullable=False)
 
 
 class Question(db.Model, BaseClass):
@@ -83,7 +83,7 @@ class Question(db.Model, BaseClass):
                                    ondelete="CASCADE"),
                         nullable=False)
     question_id = Column(BIGINT, autoincrement=True, primary_key=True)
-    question = Column(VARCHAR(200), nullable=False)
+    question = Column(VARCHAR(200, unicode=True), nullable=False)
     options = relationship("MultipleOption",
                            lazy="select",
                            backref="question",
@@ -108,7 +108,7 @@ class MultipleOption(db.Model, BaseClass):
                                     ondelete="CASCADE"),
                          nullable=False)
     option_id = Column(BIGINT, autoincrement=True, primary_key=True)
-    option_text = Column(VARCHAR(200), nullable=False)
+    option_text = Column(VARCHAR(200, unicode=True), nullable=False)
 
     __table_args__ = ({"mysql_engine": "InnoDB"})
 

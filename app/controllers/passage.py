@@ -78,8 +78,3 @@ def add_passage():
         return render_template("add_passage.html", output="Passage added successfully")
 
     return render_template("add_passage.html")
-
-
-@passage_blueprint.route("/test", methods=["GET"])
-def test():
-    return "success"
