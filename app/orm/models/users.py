@@ -30,5 +30,15 @@ class Users(db.Model,BaseClass):
 
     first_name = Column(VARCHAR(25), nullable=False, primary_key=True)
     last_name = Column(VARCHAR(25), nullable=False)
-    gmail = Column(VARCHAR(250), nullable=False)
+    gmail = Column(VARCHAR(250), nullable=False,unique=True)
     password = Column(VARCHAR(250), nullable=False)
+
+    # define email getter
+    @property
+    def email(self):
+        return self.gmail  # on user.email: return user.email_address
+
+    # define email setter
+    @email.setter
+    def email(self, value):
+        self.gmail = value

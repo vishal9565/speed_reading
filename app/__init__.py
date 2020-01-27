@@ -11,6 +11,8 @@ from flask import Flask
 
 __author__ = "vishalkumar9565@gmail.com"
 
+from flask_user import UserManager
+
 from app.controllers.login import login_blueprint
 from app.controllers.passage import passage_blueprint
 from app.errors.handler import handle_500, handle_404, handle_405, handle_401, handle_400
@@ -47,7 +49,7 @@ def create_app():
     app_instance.register_error_handler(405, handle_405)
     app_instance.register_error_handler(401, handle_401)
     app_instance.config.from_pyfile("../config/default.py", silent=False)
-    
+
     app_instance.logger = True
 
     # sql-alchemy variable initialisation
@@ -67,5 +69,6 @@ def create_app():
         # attaching db to app
         db.init_app(app=app_instance)
         db.create_all(bind=DATABASE_BIND_KEY)
+    user_manager = UserManager(app_instance, db=db, UserClass=Users)
 
     return app_instance
