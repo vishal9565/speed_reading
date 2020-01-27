@@ -8,6 +8,8 @@ from flask import Blueprint, request, render_template, render_template_string
 
 __author__ = "vishalkumar9565@gmail.com"
 
+from flask_user import login_required
+
 from app.orm.queries.passage import *
 from app.services.passage import *
 import pprint as pp
@@ -32,13 +34,13 @@ def home_page():
                <p><a href={{ url_for('user.register') }}>Register</a></p>
                <p><a href={{ url_for('user.login') }}>Sign in</a></p>
                <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
-               <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
                <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
            {% endblock %}
            """)
 
 
 @passage_blueprint.route("/passage", methods=["GET", "POST"])
+@login_required
 def get_passage():
     id = get_random_passage_id()
     if id is None:
@@ -61,6 +63,7 @@ def get_passage():
 
 
 @passage_blueprint.route("/add-passage", methods=["GET", "POST"])
+@login_required
 def add_passage():
     response_dict = request.form
     if request.method == "POST" and response_dict["title"] != "":
