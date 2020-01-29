@@ -13,7 +13,7 @@ __author__ = "vishalkumar9565@gmail.com"
 
 from flask_user import UserManager
 
-from app.controllers.login import login_blueprint
+
 from app.controllers.passage import passage_blueprint
 from app.errors.handler import handle_500, handle_404, handle_405, handle_401, handle_400
 from app.orm import db, DATABASE_BIND_KEY, DATABASE_NAME
@@ -38,7 +38,7 @@ def create_app():
                          template_folder="web/pages")
 
     # attaching blueprint here with the app
-    app_instance.register_blueprint(blueprint=login_blueprint)
+    # app_instance.register_blueprint(blueprint=login_blueprint)
     app_instance.register_blueprint(blueprint=passage_blueprint)
 
     # TODO : register error handlers

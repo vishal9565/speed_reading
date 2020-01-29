@@ -23,6 +23,27 @@ passage_blueprint = Blueprint(name="passage", import_name=__name__)
 
 
 @passage_blueprint.route("/", methods=["GET", "POST"])
+def get_login_passage():
+    id = get_fixed_passage_id()
+    if id is None:
+        return render_template("add_passage.html", output="No passage found. Please add a passage")
+    if request.method == "POST":
+        print(request.form)
+        return request.form
+    passage = Passage.query.filter(Passage.id == id).first()
+    paragraphs = str.join("\n", [para.paragraph for para in passage.paragraphs])
+    questions = passage.questions
+    options = [question.options for question in questions]
+    answers = [question.correct_answer for question in questions]
+    # return my_jsonify(passage.questions[0].correct_answer[0].question.passage)
+    # num_paras = len(passage.paragraphs)
+
+    return render_template("login.html",
+                           passage=passage,
+                           paragraphs=paragraphs,
+                           questions=zip(questions, options, answers))
+
+@passage_blueprint.route("/", methods=["GET", "POST"])
 @passage_blueprint.route("/passage", methods=["GET", "POST"])
 @login_required
 def get_passage():
