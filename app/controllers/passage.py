@@ -4,7 +4,7 @@ Passage based routes
 This contains passage related tables and its questions
 """
 
-from flask import Blueprint, request, render_template, render_template_string
+from flask import Blueprint, request, render_template
 
 __author__ = "vishalkumar9565@gmail.com"
 
@@ -22,23 +22,7 @@ LOGGER = logging.getLogger(__name__)
 passage_blueprint = Blueprint(name="passage", import_name=__name__)
 
 
-# The Home page is accessible to anyone
-@passage_blueprint.route('/')
-def home_page():
-    # String-based templates
-
-    return render_template_string("""
-           {% extends "flask_user_layout.html" %}
-           {% block content %}
-               <h2>Home page</h2>
-               <p><a href={{ url_for('user.register') }}>Register</a></p>
-               <p><a href={{ url_for('user.login') }}>Sign in</a></p>
-               <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
-               <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
-           {% endblock %}
-           """)
-
-
+@passage_blueprint.route("/", methods=["GET", "POST"])
 @passage_blueprint.route("/passage", methods=["GET", "POST"])
 @login_required
 def get_passage():

@@ -1,17 +1,16 @@
 {% extends "template/welcome.html" %}
 
 {% block sign_or_resgister_block %}
-    {#                    <add blocl herer>#}
-
     <li class="nav-item">
-        <a class="nav-link" href="../add-passage">Add passage</a>
+        <a class="nav-link" href={{ url_for('user.register') }}>Register</a>
+    </li>
+    <li>
+
+        <a class="nav-link" href={{ url_for('user.login') }}>Sign in</a>
     </li>
 
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('user.logout') }}">Sign out</a>
-    </li>
 {% endblock sign_or_resgister_block %}
+
 
 {% block passage_block %}
 
