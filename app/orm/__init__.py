@@ -13,6 +13,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 __author__ = "vishalkumar9565@gmail.com"
 
+from flask_user import UserManager
+
 _LOGGER_PATH = os.path.join("config", "logging.json")
 LOGGER = logging.getLogger(__name__)
 

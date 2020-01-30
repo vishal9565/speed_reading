@@ -1,21 +1,26 @@
 {% extends "template/welcome.html" %}
 
 {% block sign_or_resgister_block %}
-    {#                    <add blocl herer>#}
-
     <li class="nav-item">
-        <a class="nav-link" href="../add-passage">Add passage</a>
+        <a class="nav-link" href={{ url_for('user.register') }}>Register</a>
+    </li>
+    <li>
+
+        <a class="nav-link" href={{ url_for('user.login') }}>Sign in</a>
     </li>
 
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('user.logout') }}">Sign out</a>
-    </li>
 {% endblock sign_or_resgister_block %}
+
 
 {% block passage_block %}
 
-
+    <div class="alert alert-success">
+        <h3> Sign in / Register to get variety of Passage and add your own passage :-)</h3>
+        <hr>
+        <h5> Check this for demo. This is to <strong> speed up the reading and understanding at your own pace</strong>. </h5>
+        <h5> Select the words per seconds and click on start the passage and read and do the question.</h5>
+        <h6> After signin you can add your own passage. Enjoy</h6>
+    </div>
     <div class="card-body">
 
         <h2 class=" container text-center font-weight-bold blue-text shadow p-3 mb-5 rounded"
@@ -55,7 +60,7 @@
     <hr>
     <ol id="questions" class="collapse">
         {% for question, options_, answer in questions %}
-
+            {{ answer[0].option_id ,answer[0].question_id }}
             <li type="1">
 
                 <form id="question_id_{{ question.question_id }}">
@@ -65,8 +70,7 @@
                             {{ option.option_text }}<br>
                         </div>
                     {% endfor %}
-                    <div id="correct_answer_{{ question.question_id }}" class="row row-height" >
-                        <input
+                    <div id="correct_answer_{{ question.question_id }}" class="row row-height"><input
                             type="hidden">{{ answer[0].option_id }}</div>
                     <hr>
                 </form>

@@ -8,6 +8,8 @@ from flask import Blueprint, request, render_template
 
 __author__ = "vishalkumar9565@gmail.com"
 
+from flask_user import login_required
+
 from app.orm.queries.passage import *
 from app.services.passage import *
 import pprint as pp
@@ -21,7 +23,29 @@ passage_blueprint = Blueprint(name="passage", import_name=__name__)
 
 
 @passage_blueprint.route("/", methods=["GET", "POST"])
+def get_login_passage():
+    id = get_fixed_passage_id()
+    if id is None:
+        return render_template("add_passage.html", output="No passage found. Please add a passage")
+    if request.method == "POST":
+        print(request.form)
+        return request.form
+    passage = Passage.query.filter(Passage.id == id).first()
+    paragraphs = str.join("\n", [para.paragraph for para in passage.paragraphs])
+    questions = passage.questions
+    options = [question.options for question in questions]
+    answers = [question.correct_answer for question in questions]
+    # return my_jsonify(passage.questions[0].correct_answer[0].question.passage)
+    # num_paras = len(passage.paragraphs)
+
+    return render_template("login.html",
+                           passage=passage,
+                           paragraphs=paragraphs,
+                           questions=zip(questions, options, answers))
+
+@passage_blueprint.route("/", methods=["GET", "POST"])
 @passage_blueprint.route("/passage", methods=["GET", "POST"])
+@login_required
 def get_passage():
     id = get_random_passage_id()
     if id is None:
@@ -44,6 +68,7 @@ def get_passage():
 
 
 @passage_blueprint.route("/add-passage", methods=["GET", "POST"])
+@login_required
 def add_passage():
     response_dict = request.form
     if request.method == "POST" and response_dict["title"] != "":

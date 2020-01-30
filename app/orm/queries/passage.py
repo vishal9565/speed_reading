@@ -84,3 +84,14 @@ def get_random_passage_id():
     if passage:
         return passage.id
     return passage
+
+def get_fixed_passage_id():
+    """
+    getting fixed id of the passage which is present in db
+    :return: id of the passage
+    :rtype :int
+    """
+    passage = Passage.query.first()
+    if passage:
+        return passage.id
+    return passage

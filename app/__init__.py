@@ -11,11 +11,13 @@ from flask import Flask
 
 __author__ = "vishalkumar9565@gmail.com"
 
-from app.controllers.login import login_blueprint
+from flask_user import UserManager
+
+
 from app.controllers.passage import passage_blueprint
 from app.errors.handler import handle_500, handle_404, handle_405, handle_401, handle_400
 from app.orm import db, DATABASE_BIND_KEY, DATABASE_NAME
-from app.orm.models.users import Users
+from app.orm.models.login import User
 from app.orm.models.passage import Passage
 from utils.converters import str2bool
 
@@ -36,7 +38,7 @@ def create_app():
                          template_folder="web/pages")
 
     # attaching blueprint here with the app
-    app_instance.register_blueprint(blueprint=login_blueprint)
+    # app_instance.register_blueprint(blueprint=login_blueprint)
     app_instance.register_blueprint(blueprint=passage_blueprint)
 
     # TODO : register error handlers
@@ -47,7 +49,7 @@ def create_app():
     app_instance.register_error_handler(405, handle_405)
     app_instance.register_error_handler(401, handle_401)
     app_instance.config.from_pyfile("../config/default.py", silent=False)
-    
+
     app_instance.logger = True
 
     # sql-alchemy variable initialisation
@@ -63,9 +65,11 @@ def create_app():
         # "pool_recycle": int(os.environ["SQLALCHEMY_POOL_RECYCLE"])
 
     }
+
     with app_instance.app_context():
         # attaching db to app
         db.init_app(app=app_instance)
         db.create_all(bind=DATABASE_BIND_KEY)
+    user_manager = UserManager(app_instance, db=db, UserClass=User)
 
     return app_instance
