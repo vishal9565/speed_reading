@@ -57,7 +57,7 @@
         {% for question, options_, answer in questions %}
 
             <li type="1">
-
+                {{question.question}}
                 <form id="question_id_{{ question.question_id }}">
                     {% for option in options_ %}
                         <div id="option_id_{{ option.option_id }}_text">
@@ -65,9 +65,8 @@
                             {{ option.option_text }}<br>
                         </div>
                     {% endfor %}
-                    <div id="correct_answer_{{ question.question_id }}" class="row row-height" >
-                        <input
-                            type="hidden">{{ answer[0].option_id }}</div>
+                    <div id="correct_answer_{{ question.question_id }}" class="row row-height" value="{{ answer[0].option_id }}">
+
                     <hr>
                 </form>
             </li>
@@ -139,14 +138,14 @@
         submit.onclick = function () {
             var correct_answer = 0;
             for (ind = 0; ind < questions.length; ind++) {
-                var correct_option = document.getElementById("option_id_" + questions[ind].innerText);
+                var correct_option = document.getElementById("option_id_" + questions[ind].attributes.value.value);
 
                 if (correct_option.checked) {
-                    var highlight = document.getElementById("option_id_" + questions[ind].innerText + "_text");
+                    var highlight = document.getElementById("option_id_" + questions[ind].attributes.value.value + "_text");
                     highlight.style.color = "#19ff18";
                     correct_answer = correct_answer + 1;
                 } else {
-                    var highlight = document.getElementById("option_id_" + questions[ind].innerText + "_text");
+                    var highlight = document.getElementById("option_id_" + questions[ind].attributes.value.value + "_text");
                     highlight.style.color = "#ff1e34";
                 }
 
