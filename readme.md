@@ -7,10 +7,9 @@ understood it correctly.
 
 # gunicorn setup
 envs:
-    APP_DB=mysql+pymysql://root:root@127.0.0.1:3306/speed;FLASK_DEBUG=1;SQLALCHEMY_ECHO=1;SQLALCHEMY_POOL_SIZE=10;SQLALCHEMY_MAX_OVERFLOW=10;SQLALCHEMY_POOL_PRE_PING=1
+     ```APP_DB=mysql+pymysql://root:root@127.0.0.1:3306/speed;FLASK_DEBUG=1;SQLALCHEMY_ECHO=1;SQLALCHEMY_POOL_SIZE=10;SQLALCHEMY_MAX_OVERFLOW=10;SQLALCHEMY_POOL_PRE_PING=1```
     
 params:
-    -c config/gunicorn_config.py -b 127.0.0.1:9000 --log-level DEBUG main:app_instance
+    ```-c config/gunicorn_config.py -b 127.0.0.1:9000 --log-level DEBUG main:app_instance```
     
-# Database 
- Creating database name speed
+For preview :```http://mabrin123.pythonanywhere.com/```
